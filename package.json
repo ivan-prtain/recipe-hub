@@ -1,5 +1,7 @@
 {
+  "homepage": ".",
   "name": "recipe-hub",
+  "proxy": "https://getappusers-zazjbx7nka-uc.a.run.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +12,7 @@
     "@types/node": "^16.18.36",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
+    "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.0",
