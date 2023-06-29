@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import RegisterForm from './components/Login/RegisterForm';
 import Homepage from './components/Homepage/Homepage';
 import { useEffect, useState } from 'react';
+import RecipeDetails from './components/RecipeDetails/RecipeDetails';
 
 export type AppUserType = {
   id: string,
@@ -59,6 +60,11 @@ function App() {
           <Route
             path='/register'
             element={<RegisterForm />}
+          />
+
+          <Route
+            path='/recipe-details/:id'
+            element={<RecipeDetails />}
           />
 
         </Routes>

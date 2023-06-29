@@ -28,7 +28,7 @@ const Login = ({ onLogin }: LoginProps) => {
             const data = await response.json()
 
 
-            console.log(data)
+            // console.log(data)
         } catch (error) {
             console.log(error)
         }
@@ -48,12 +48,12 @@ const Login = ({ onLogin }: LoginProps) => {
             })
 
             const responseData = await response.json()
-            console.log(responseData)
+            //  console.log(responseData)
 
             if (response.status === 200) {
                 onLogin(responseData.appUser)
                 localStorage.setItem('appUser', JSON.stringify(responseData.appUser));
-                console.log("succesfully logged in")
+                // console.log("succesfully logged in")
             }
         } catch (error) {
             console.log(error)
@@ -95,7 +95,7 @@ const Login = ({ onLogin }: LoginProps) => {
             password: target.password.value
         }
 
-        console.log(userInfo)
+        // console.log(userInfo)
         loginUser(userInfo)
 
     }

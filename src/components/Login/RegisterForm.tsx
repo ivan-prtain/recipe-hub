@@ -20,10 +20,10 @@ const RegisterForm = () => {
                 body: JSON.stringify(userInfo)
             })
             const responseData = await response.json()
-            console.log(responseData)
+            //  console.log(responseData)
 
             if (response.status === 200) {
-                console.log(responseData)
+                //   console.log(responseData)
                 alert(responseData.message || 'User created successfully')
                 navigate('/')
             }
@@ -57,7 +57,7 @@ const RegisterForm = () => {
         const password = formData.password.value
 
         if (validatePassword(password)) {
-            console.log('Password is valid')
+            //   console.log('Password is valid')
             createUser(userInfo)
 
         } else {
