@@ -15,7 +15,9 @@ type RecipeType = {
 const Homepage = () => {
 
     const navigate = useNavigate()
+    const [allRecipes, setAllRecipes] = useState<RecipeType[]>([])
     const [recipes, setRecipes] = useState<RecipeType[]>([])
+    const [searchValue, setSearchValue] = useState('')
 
     const fetchRecipes = async () => {
         try {
@@ -29,6 +31,7 @@ const Homepage = () => {
             const data = await response.json()
             console.log("recipes")
             console.log(data.recipes)
+            setAllRecipes(data.recipes)
             setRecipes(data.recipes)
         } catch (error) {
             console.log(error)
@@ -45,9 +48,23 @@ const Homepage = () => {
         navigate(`/recipe-details/${id}`)
     }
 
+    const handleSearch = () => {
+        const filteredRecipes = allRecipes.filter((recipe) => {
+            return recipe.title.toLowerCase().includes(searchValue.toLowerCase())
+        })
+
+        setRecipes(filteredRecipes)
+    }
+
+    console.log({ searchValue })
+
     return (
         <div className='main-wrapper'>
             <h1>Homepage</h1>
+            <div>
+                <input placeholder='search' onChange={(e) => setSearchValue(e.target.value)} />
+                <button onClick={handleSearch}>Search</button>
+            </div>
             {recipes.map((recipe) => (
                 <div key={recipe.id} className='recipe' onClick={() => handleRecipeClick(recipe.id)}>
                     <span>{recipe.dateCreated}</span>
