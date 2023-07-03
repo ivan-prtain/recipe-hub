@@ -44,4 +44,13 @@ module.exports = function (app) {
             changeOrigin: true,
         })
     )
+
+    //GET ALL RECIPES
+    app.use(
+        '/get-recipe',
+        createProxyMiddleware({
+            target: 'https://getrecipe-zazjbx7nka-uc.a.run.app/',
+            changeOrigin: true,
+        })
+    )
 };

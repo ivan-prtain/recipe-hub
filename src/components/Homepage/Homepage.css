@@ -1,0 +1,13 @@
+.main-wrapper {
+    margin: 0px 20px;
+}
+
+.instructions {
+    display: flex;
+    gap: 10px;
+}
+
+.recipe {
+    display: flex;
+    gap: 20px;
+}
