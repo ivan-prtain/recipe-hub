@@ -11,3 +11,8 @@
     display: flex;
     gap: 20px;
 }
+
+.new-recipe-form {
+    display: flex;
+    flex-direction: column;
+}

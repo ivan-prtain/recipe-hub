@@ -53,4 +53,31 @@ module.exports = function (app) {
             changeOrigin: true,
         })
     )
+
+    //CREATE A RECIPE
+    app.use(
+        '/add-recipe',
+        createProxyMiddleware({
+            target: 'https://addrecipe-zazjbx7nka-uc.a.run.app/',
+            changeOrigin: true,
+        })
+    )
+
+    //EDIT RECIPE
+    app.use(
+        '/edit-recipe',
+        createProxyMiddleware({
+            target: 'https://editrecipe-zazjbx7nka-uc.a.run.app/',
+            changeOrigin: true,
+        })
+    )
+
+    //DELETE RECIPE
+    app.use(
+        '/delete-recipe',
+        createProxyMiddleware({
+            target: 'https://deleterecipe-zazjbx7nka-uc.a.run.app/',
+            changeOrigin: true,
+        })
+    )
 };
