@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RecipeRequestFormatType } from '../Homepage/Homepage'
+import { RecipeDetailsType } from '../RecipeDetails/RecipeDetails'
 
-type RecipeToAddType = {
+export type RecipeToAddType = {
     authorId: string,
     dateCreated: string,
     instructions: string[]
@@ -10,12 +11,25 @@ type RecipeToAddType = {
 }
 
 type AddRecipeFormProps = {
-    addRecipe: (recipe: RecipeRequestFormatType) => void
+    onSubmit: (recipe: RecipeToAddType) => void
+    editMode?: boolean
+    editingData?: RecipeDetailsType
 }
 
-const AddRecipeForm = ({ addRecipe }: AddRecipeFormProps) => {
+const AddRecipeForm = ({ onSubmit, editMode = false, editingData }: AddRecipeFormProps) => {
     const [tag, setTag] = useState('')
     const [tags, setTags] = useState<string[]>([])
+    const [title, setTitle] = useState('')
+    const [instructions, setInstructions] = useState('')
+
+    useEffect(() => {
+        if (editMode && editingData) {
+            const formattedInstructions = editingData.instructions.join('\n');
+            setTitle(editingData.title)
+            setInstructions(formattedInstructions)
+            setTags(editingData.tags)
+        }
+    }, [])
 
 
     const handleAddTagg = () => {
@@ -33,6 +47,7 @@ const AddRecipeForm = ({ addRecipe }: AddRecipeFormProps) => {
     const handleKeyDown = (event: any) => {
         if (event.key === 'Enter') {
             const hasNewLine = event.target.value.includes('\n');
+            setInstructions(event.target.value)
             console.log('New line entered:', hasNewLine);
         }
     };
@@ -62,19 +77,26 @@ const AddRecipeForm = ({ addRecipe }: AddRecipeFormProps) => {
         const recipe: RecipeToAddType = {
             authorId: authorId,
             dateCreated: dateFormatted,
-            instructions: getFormatedInstructions(target.instructions.value),
+            instructions: getFormatedInstructions(instructions),
             tags: tags,
-            title: target.title.value
+            title: title
         }
 
         console.log(recipe)
 
-        const formattedRecipe = {
-            recipe: recipe
-        }
 
-        addRecipe(formattedRecipe)
 
+        onSubmit(recipe)
+
+    }
+
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.target.value)
+    }
+
+    const handleInstructionsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setInstructions(e.target.value)
+        console.log(instructions)
     }
 
 
@@ -84,8 +106,8 @@ const AddRecipeForm = ({ addRecipe }: AddRecipeFormProps) => {
             <h2>Create a new recipe!</h2>
             <div>
                 <form className="new-recipe-form" onSubmit={onCreateRecipe}>
-                    <input type="text" name='title' placeholder='Title' />
-                    <textarea onKeyDown={handleKeyDown} name='instructions' placeholder='Instructions' />
+                    <input type="text" name='title' placeholder='Title' value={title} onChange={handleTitleChange} />
+                    <textarea onKeyDown={handleKeyDown} name='instructions' placeholder='Instructions' value={instructions} onChange={handleInstructionsChange} />
 
                     <div>
                         <p>Add a tag</p>
@@ -103,7 +125,7 @@ const AddRecipeForm = ({ addRecipe }: AddRecipeFormProps) => {
                             ))}
                         </div>
                     </div>
-                    <button type='submit'>Create</button>
+                    <button type='submit'>{editMode ? 'Save Recipe' : 'Add Recipe'}</button>
                 </form>
             </div>
         </div>

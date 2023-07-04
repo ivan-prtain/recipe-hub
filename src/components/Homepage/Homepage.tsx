@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import Modal from '../Modal/Modal';
 import AddRecipe from '../AddRecipe/AddRecipeForm';
+import { RecipeToAddType } from '../AddRecipe/AddRecipeForm';
 
 import "./Homepage.css"
 
@@ -82,7 +83,11 @@ const Homepage = () => {
     /*     console.log({ searchValue }) */
 
 
-    const addRecipe = async (recipe: RecipeRequestFormatType) => {
+    const addRecipe = async (recipe: RecipeToAddType) => {
+        console.log(recipe)
+        const recipeToAdd = {
+            recipe: recipe
+        }
         setIsSubmittingRecipe(true)
         try {
             const response = await fetch(`/add-recipe`, {
@@ -91,7 +96,7 @@ const Homepage = () => {
                     authid: 'B03oPhAgezge1BbO8eWNwncfV4u1',
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(recipe)
+                body: JSON.stringify(recipeToAdd)
             })
 
             if (response.status === 200) {
@@ -132,7 +137,7 @@ const Homepage = () => {
             ))}
 
             <Modal isOpen={isModalOpen} onClose={onModalClose}>
-                {isSubmittingRecipe ? <p>Adding recipe...</p> : <AddRecipe addRecipe={addRecipe} />}
+                {isSubmittingRecipe ? <p>Adding recipe...</p> : <AddRecipe onSubmit={addRecipe} />}
             </Modal>
 
         </div>
