@@ -27,8 +27,8 @@ function App() {
   useEffect(() => {
     if (!appUser) {
       const storedUser = localStorage.getItem('appUser');
-      console.log("from start page")
-      console.log(storedUser)
+      /*       console.log("from start page")
+            console.log(storedUser) */
       if (storedUser) {
         const parsedStoredUser = JSON.parse(storedUser);
         setAppUser(parsedStoredUser);
