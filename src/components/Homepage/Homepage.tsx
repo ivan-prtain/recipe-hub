@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import Modal from '../Modal/Modal';
+import AddRecipe from '../AddRecipe/AddRecipeForm';
 
 import "./Homepage.css"
+
+export type RecipeRequestFormatType = {
+    recipe: {
+        authorId: string,
+        dateCreated: string,
+        instructions: string[]
+        tags: string[]
+        title: string
+    }
+}
 
 type RecipeType = {
     authorId: string,
@@ -13,23 +24,9 @@ type RecipeType = {
     title: string
 }
 
-type RecipeToAddType = {
-    authorId: string,
-    dateCreated: string,
-    instructions: string[]
-    tags: string[]
-    title: string
-}
 
-type RecipeRequestFormatType = {
-    recipe: {
-        authorId: string,
-        dateCreated: string,
-        instructions: string[]
-        tags: string[]
-        title: string
-    }
-}
+
+
 
 const Homepage = () => {
 
@@ -37,9 +34,9 @@ const Homepage = () => {
     const [allRecipes, setAllRecipes] = useState<RecipeType[]>([])
     const [recipes, setRecipes] = useState<RecipeType[]>([])
     const [searchValue, setSearchValue] = useState('')
+    const [isSubmittingRecipe, setIsSubmittingRecipe] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [tag, setTag] = useState('')
-    const [tags, setTags] = useState<string[]>([])
+
 
     const fetchRecipes = async () => {
         try {
@@ -51,8 +48,8 @@ const Homepage = () => {
                 }
             })
             const data = await response.json()
-            console.log("recipes")
-            console.log(data.recipes)
+            /*      console.log("recipes")
+                 console.log(data.recipes) */
             setAllRecipes(data.recipes)
             setRecipes(data.recipes)
         } catch (error) {
@@ -64,7 +61,7 @@ const Homepage = () => {
         fetchRecipes()
     }, [])
 
-    console.log(typeof recipes)
+
 
     const handleRecipeClick = (id: string) => {
         navigate(`/recipe-details/${id}`)
@@ -82,10 +79,11 @@ const Homepage = () => {
         setIsModalOpen(false)
     }
 
-    console.log({ searchValue })
+    /*     console.log({ searchValue }) */
 
 
     const addRecipe = async (recipe: RecipeRequestFormatType) => {
+        setIsSubmittingRecipe(true)
         try {
             const response = await fetch(`/add-recipe`, {
                 method: 'POST',
@@ -99,58 +97,17 @@ const Homepage = () => {
             if (response.status === 200) {
                 fetchRecipes()
                 setIsModalOpen(false)
-                setTag('')
-                setTags([])
+
             }
 
         } catch (error) {
             console.log(error)
+
+        } finally {
+            setIsSubmittingRecipe(false)
         }
     }
-    const storedUser = JSON.parse(localStorage.getItem('appUser')!);
 
-    const authorId = storedUser.id
-    const dateCreated = new Date(Date.now())
-    const dateDay = dateCreated.getDate()
-    const month = dateCreated.getMonth()
-    const year = dateCreated.getFullYear()
-    const dateFormatted = `${year}-${month}-${dateDay}`
-
-
-
-    const onCreateRecipe = (e: React.FormEvent) => {
-        e.preventDefault()
-
-
-
-        const target = e.target as typeof e.target & {
-            title: { value: string }
-            instructions: { value: string }
-            tags: { value: string }
-        }
-
-
-
-        const recipe: RecipeToAddType = {
-            authorId: authorId,
-            dateCreated: dateFormatted,
-            instructions: [target.instructions.value],
-            tags: tags,
-            title: target.title.value
-        }
-
-        console.log(recipe)
-
-        const formattedRecipe = {
-            recipe: recipe
-        }
-
-        addRecipe(formattedRecipe)
-    }
-
-    const handleAddTagg = () => {
-        setTags([...tags, tag])
-    }
 
     return (
         <div className='main-wrapper'>
@@ -175,31 +132,7 @@ const Homepage = () => {
             ))}
 
             <Modal isOpen={isModalOpen} onClose={onModalClose}>
-                <h2>Create a new recipe!</h2>
-                <div>
-                    <form className="new-recipe-form" onSubmit={onCreateRecipe}>
-                        <input type="text" name='title' placeholder='Title' />
-                        <textarea name='instructions' placeholder='Instructions' />
-
-                        <div>
-                            <p>Add a tag</p>
-                            <input type="text" name="tag" placeholder='Tag' onChange={(e) => setTag(e.target.value)} />
-                            <button type='button' onClick={handleAddTagg}>Add</button>
-                        </div>
-                        <div>
-                            <div>Tags</div>
-                            <div>
-                                {tags.map((tag) => (
-                                    <div>
-                                        <span key={tag}>{tag}</span>
-                                        <span onClick={() => setTags(tags.filter((t) => t !== tag))}>X</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <button type='submit'>Create</button>
-                    </form>
-                </div>
+                {isSubmittingRecipe ? <p>Adding recipe...</p> : <AddRecipe addRecipe={addRecipe} />}
             </Modal>
 
         </div>
