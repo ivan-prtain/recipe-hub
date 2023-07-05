@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/https//ivan-prtain.github.io/recipe-hub/static/css/main.d572eddd.css",
+    "main.js": "/https//ivan-prtain.github.io/recipe-hub/static/js/main.320fb611.js",
+    "static/js/787.93ba8c01.chunk.js": "/https//ivan-prtain.github.io/recipe-hub/static/js/787.93ba8c01.chunk.js",
+    "static/media/wooden-desk.jpg": "/https//ivan-prtain.github.io/recipe-hub/static/media/wooden-desk.21a73344dd47f0413e66.jpg",
+    "static/media/wood-sample.jpg": "/https//ivan-prtain.github.io/recipe-hub/static/media/wood-sample.a67cf64cdde4a7d9c355.jpg",
+    "static/media/food-default.jpg": "/https//ivan-prtain.github.io/recipe-hub/static/media/food-default.f25951630c808e316be3.jpg",
+    "static/media/wooden-texture.svg": "/https//ivan-prtain.github.io/recipe-hub/static/media/wooden-texture.f1def99e6dc5afffd739.svg",
+    "static/media/chef.svg": "/https//ivan-prtain.github.io/recipe-hub/static/media/chef.409d70da91bccc3022132a982871111d.svg",
+    "index.html": "/https//ivan-prtain.github.io/recipe-hub/index.html",
+    "main.d572eddd.css.map": "/https//ivan-prtain.github.io/recipe-hub/static/css/main.d572eddd.css.map",
+    "main.320fb611.js.map": "/https//ivan-prtain.github.io/recipe-hub/static/js/main.320fb611.js.map",
+    "787.93ba8c01.chunk.js.map": "/https//ivan-prtain.github.io/recipe-hub/static/js/787.93ba8c01.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d572eddd.css",
+    "static/js/main.320fb611.js"
+  ]
+}
