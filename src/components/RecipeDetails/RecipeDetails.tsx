@@ -50,6 +50,7 @@ const RecipeDetails = () => {
     }
 
     const handleSaveRecipe = async (recipe: RecipeToAddType) => {
+        setIsSavingRecipe(true)
         const recipeToSave = {
             recipeId: recipeData?.id,
             recipe: recipe
@@ -65,11 +66,14 @@ const RecipeDetails = () => {
             })
             if (response.status === 200) {
                 setIsEditModalOpen(false)
+
                 fetchRecipeDetails()
             }
 
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsSavingRecipe(false)
         }
     }
 
