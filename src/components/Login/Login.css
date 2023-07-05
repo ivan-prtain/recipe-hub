@@ -2,6 +2,23 @@
     background: white;
     width: 190px;
     text-align: center;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
 
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-link {
+    color: red;
+    text-decoration: underline;
 }

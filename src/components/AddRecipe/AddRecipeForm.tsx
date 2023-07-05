@@ -65,17 +65,6 @@ const AddRecipeForm = ({ onSubmit, editMode = false, editingData }: AddRecipeFor
         const year = dateCreated.getFullYear()
         const dateFormatted = `${year}-${month}-${dateDay}`
 
-
-        const target = e.target as typeof e.target & {
-            title: { value: string }
-            instructions: { value: string }
-            tags: { value: string }
-        }
-
-
-
-
-
         const recipe: RecipeToAddType = {
             authorId: authorId,
             dateCreated: dateFormatted,
@@ -83,10 +72,6 @@ const AddRecipeForm = ({ onSubmit, editMode = false, editingData }: AddRecipeFor
             tags: tags,
             title: title
         }
-
-        console.log(recipe)
-
-
 
         onSubmit(recipe)
 
@@ -98,10 +83,7 @@ const AddRecipeForm = ({ onSubmit, editMode = false, editingData }: AddRecipeFor
 
     const handleInstructionsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInstructions(e.target.value)
-        console.log(instructions)
     }
-
-
 
     return (
         <div>

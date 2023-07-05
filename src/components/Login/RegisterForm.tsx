@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
+import "./RegisterForm.css";
+
 type UserInfoType = {
     name: string
     email: string
@@ -20,10 +22,8 @@ const RegisterForm = () => {
                 body: JSON.stringify(userInfo)
             })
             const responseData = await response.json()
-            //  console.log(responseData)
 
             if (response.status === 200) {
-                //   console.log(responseData)
                 alert(responseData.message || 'User created successfully')
                 navigate('/')
             }
@@ -57,19 +57,16 @@ const RegisterForm = () => {
         const password = formData.password.value
 
         if (validatePassword(password)) {
-            //   console.log('Password is valid')
             createUser(userInfo)
-
         } else {
             console.log('Password is invalid')
         }
     }
 
-
     return (
-        <div>
+        <div className="register-form-container">
             <h1>Register Form</h1>
-            <form onSubmit={handleSubmit}>
+            <form className="register-form" onSubmit={handleSubmit}>
                 <input placeholder="Name" type="text" name="name" required />
                 <input placeholder="Email" type="email" name="email" required />
                 <input placeholder="Password" type="text" name="password" required />
