@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { RecipeRequestFormatType } from '../Homepage/Homepage'
 import { RecipeDetailsType } from '../RecipeDetails/RecipeDetails'
 
+import "./AddRecipeForm.css"
+
 export type RecipeToAddType = {
     authorId: string,
     dateCreated: string,
@@ -106,8 +108,12 @@ const AddRecipeForm = ({ onSubmit, editMode = false, editingData }: AddRecipeFor
             <h2>Create a new recipe!</h2>
             <div>
                 <form className="new-recipe-form" onSubmit={onCreateRecipe}>
-                    <input type="text" name='title' placeholder='Title' value={title} onChange={handleTitleChange} />
-                    <textarea onKeyDown={handleKeyDown} name='instructions' placeholder='Instructions' value={instructions} onChange={handleInstructionsChange} />
+                    <div className='new-recipe-form__head'>
+
+                        <label htmlFor="add-recipe-title-id">Title of your recipe:</label>
+                        <input id="add-recipe-title-id" type="text" name='title' placeholder='Title' value={title} onChange={handleTitleChange} />
+                        <textarea className='new-recipe-form__instructions' id='add-recipe-instructions-id' onKeyDown={handleKeyDown} name='instructions' placeholder='Instructions' value={instructions} onChange={handleInstructionsChange} />
+                    </div>
 
                     <div>
                         <p>Add a tag</p>
@@ -116,11 +122,11 @@ const AddRecipeForm = ({ onSubmit, editMode = false, editingData }: AddRecipeFor
                     </div>
                     <div>
                         <div>Tags</div>
-                        <div>
+                        <div className='form-tag-collection'>
                             {tags.map((tag) => (
-                                <div>
+                                <div className='fixed-tag edit-tag'>
                                     <span key={tag}>{tag}</span>
-                                    <span onClick={() => setTags(tags.filter((t) => t !== tag))}>X</span>
+                                    <span onClick={() => setTags(tags.filter((t) => t !== tag))}>| x</span>
                                 </div>
                             ))}
                         </div>

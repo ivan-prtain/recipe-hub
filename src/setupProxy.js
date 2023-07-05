@@ -10,6 +10,7 @@ module.exports = function (app) {
         })
     );
 
+    //GET USER
     app.use(
         '/get-user',
         createProxyMiddleware({

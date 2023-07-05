@@ -17,7 +17,7 @@ const Modal = ({ children, isOpen, onClose }: ModalProps) => {
     return (
         <div className='modal-background'>
             <div className='modal-container'>
-                <div>
+                <div className='modal-top'>
                     <button onClick={onClose}>X</button>
                 </div>
                 {children}

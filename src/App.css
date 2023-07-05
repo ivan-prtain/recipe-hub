@@ -1,38 +1,60 @@
-.App {
-  text-align: center;
+* {
+  font-family: Raleway;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: url(./assets/svgs/wooden-texture.svg);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+button {
+  font-family: Raleway;
+  background: black;
   color: white;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-.App-link {
-  color: #61dafb;
+input {
+  &:focus {
+    outline: none;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+textarea {
+  &:focus {
+    outline: none;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+
+
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  justify-content: flex-end;
+  background: rgba(251, 61, 2, .3);
+  height: 30px;
+}
+
+.tag {
+  border: 1px solid black;
+}
+
+.fixed-tag {
+  background-color: #be1616;
+  color: #fff;
+  display: inline-block;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: center;
+  font-family: Verdana;
+  font-size: 16px;
+  font-weight: 300;
 }
