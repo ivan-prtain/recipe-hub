@@ -96,3 +96,11 @@
     display: flex;
     flex-direction: column;
 }
+
+.select-search-option {
+    margin-right: 20px;
+
+    &:focus {
+        outline: none;
+    }
+}
