@@ -27,6 +27,11 @@ type RecipeType = {
     title: string
 }
 
+enum SearchOption {
+    title = "title",
+    tags = "tags"
+}
+
 
 const Homepage = () => {
 
@@ -34,8 +39,11 @@ const Homepage = () => {
     const [allRecipes, setAllRecipes] = useState<RecipeType[]>([])
     const [recipes, setRecipes] = useState<RecipeType[]>([])
     const [searchValue, setSearchValue] = useState('')
+    const [searchOption, setSearchOption] = useState<SearchOption>(SearchOption.title)
     const [isSubmittingRecipe, setIsSubmittingRecipe] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [onlyAuthorsRecipes, setOnlyAuthorsRecipes] = useState(false)
 
 
     const fetchRecipes = async () => {
@@ -51,7 +59,7 @@ const Homepage = () => {
             /*      console.log("recipes")
                  console.log(data.recipes) */
             setAllRecipes(data.recipes)
-            setRecipes(data.recipes)
+            setRecipes(data.recipes.slice(0, 10))
         } catch (error) {
             console.log(error)
         }
@@ -68,11 +76,28 @@ const Homepage = () => {
     }
 
     const handleSearch = () => {
-        const filteredRecipes = allRecipes.filter((recipe) => {
-            return recipe.title.toLowerCase().includes(searchValue.toLowerCase())
-        })
+        if (searchValue === "") {
+            console.log("true")
+            setRecipes(allRecipes.slice(0, 10))
+            setCurrentPage(1)
 
-        setRecipes(filteredRecipes)
+        }
+        else if (searchOption === SearchOption.title) {
+            const filteredRecipes = allRecipes.filter((recipe) => {
+                return recipe.title.toLowerCase().includes(searchValue.toLowerCase())
+            })
+            setRecipes(filteredRecipes)
+        } else {
+            const filteredRecipes = allRecipes.filter((recipe) => {
+                return recipe.tags.some((tag) => {
+                    return tag.toLowerCase().includes(searchValue.toLowerCase())
+                })
+            })
+            setRecipes(filteredRecipes)
+        }
+
+
+
     }
 
     const onModalClose = () => {
@@ -118,18 +143,63 @@ const Homepage = () => {
         }
     }
 
+    const addPage = () => {
+
+        console.log(currentPage)
+        const startIndex = currentPage * 10
+        const endIndex = startIndex + 10
+        const contentToAdd = allRecipes.slice(startIndex, endIndex)
+        setRecipes([...recipes, ...contentToAdd])
+        setCurrentPage(currentPage + 1)
+
+    }
+
+    const handleSelectChagnge = (event: any) => {
+        setSearchOption(event.target.value)
+    }
+
+    const handleAuthorToggle = () => {
+
+
+        if (!onlyAuthorsRecipes) {
+            const authorRecipes = allRecipes.filter((recipe) => {
+                const userData = JSON.parse(localStorage.getItem('appUser')!)
+
+                console.log(recipe.authorId)
+                return recipe.authorId === userData.id
+            })
+            setRecipes(authorRecipes)
+        } else {
+            setRecipes(allRecipes.slice(0, 10))
+            setCurrentPage(1)
+        }
+
+        setOnlyAuthorsRecipes(!onlyAuthorsRecipes)
+
+
+    }
+
 
     return (
         <div className='main-wrapper'>
             <div className='header'>
                 <h1>Tasty Recipes</h1>
                 <div>
+                    <select className='select-search-option' onChange={handleSelectChagnge}>
+                        <option value='title'>Title</option>
+                        <option value='tags'>Tags</option>
+                    </select>
                     <input onKeyDown={handleSearchKeyDown} placeholder='search' onChange={(e) => setSearchValue(e.target.value)} />
                     <button onClick={handleSearch}>Search</button>
                 </div>
                 <div>
                     <button onClick={() => setIsModalOpen(true)}>Add Recipe</button>
                 </div>
+            </div>
+            <div>
+                <button onClick={handleAuthorToggle}>
+                    {onlyAuthorsRecipes ? "Show all recipes" : "Show only my recipes"}
+                </button>
             </div>
             {recipes.length > 0 ?
                 <div className='recipes-collection' >
@@ -162,8 +232,9 @@ const Homepage = () => {
             <Modal isOpen={isModalOpen} onClose={onModalClose}>
                 {isSubmittingRecipe ? <p>Adding recipe...</p> : <AddRecipe onSubmit={addRecipe} />}
             </Modal>
+            {!onlyAuthorsRecipes && !searchValue && < button onClick={addPage}>Load more</button>}
 
-        </div>
+        </div >
 
     )
 }
