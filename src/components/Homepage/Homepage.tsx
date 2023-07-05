@@ -116,25 +116,30 @@ const Homepage = () => {
 
     return (
         <div className='main-wrapper'>
-            <h1>Homepage</h1>
-            <div>
-                <input placeholder='search' onChange={(e) => setSearchValue(e.target.value)} />
-                <button onClick={handleSearch}>Search</button>
-            </div>
-            <div>
-                <button onClick={() => setIsModalOpen(true)}>Add Recipe</button>
-            </div>
-            {recipes.map((recipe) => (
-                <div key={recipe.id} className='recipe' onClick={() => handleRecipeClick(recipe.id)}>
-                    <span>{recipe.dateCreated}</span>
-                    <span>{recipe.title}:</span>
-                    <span className='instructions'>
-                        {recipe.instructions.map((instruction) => (
-                            <span key={instruction}>{instruction}</span>
-                        ))}
-                    </span>
+            <div className='header'>
+                <h1>Tasty Recipes</h1>
+                <div>
+                    <input placeholder='search' onChange={(e) => setSearchValue(e.target.value)} />
+                    <button onClick={handleSearch}>Search</button>
                 </div>
-            ))}
+                <div>
+                    <button onClick={() => setIsModalOpen(true)}>Add Recipe</button>
+                </div>
+            </div>
+            <div>
+
+                {recipes.map((recipe) => (
+                    <div key={recipe.id} className='recipe' onClick={() => handleRecipeClick(recipe.id)}>
+                        <h3 className='recipe-title'>{recipe.title}:</h3>
+                        <span>{recipe.dateCreated}</span>
+                        <span className='instructions'>
+                            {recipe.instructions.map((instruction) => (
+                                <span key={instruction}>{instruction}</span>
+                            ))}
+                        </span>
+                    </div>
+                ))}
+            </div>
 
             <Modal isOpen={isModalOpen} onClose={onModalClose}>
                 {isSubmittingRecipe ? <p>Adding recipe...</p> : <AddRecipe onSubmit={addRecipe} />}
