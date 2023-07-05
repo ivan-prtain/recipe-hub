@@ -1,0 +1,60 @@
+.recipe-details-title {
+    border-bottom: 2px solid white;
+}
+
+.instruction-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.recipe-details__back {
+    display: flex;
+    justify-content: flex-start;
+    position: absolute;
+    top: 2px;
+}
+
+.instruction-number {
+    display: flex;
+    border: 3px solid #b5b5b5;
+    border-radius: 50%;
+    height: 30px;
+    min-width: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #80321b;
+    justify-content: center;
+}
+
+.recipe-details__tags {
+    display: flex;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.recipe-details__content {
+    padding: 10px 20px;
+}
+
+.chef-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.recipe-details__author {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    &>p {
+        margin: 0;
+    }
+}
+
+.recipe-details__instructions {
+    background-color: rgba(229, 234, 235, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+}

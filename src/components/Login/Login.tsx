@@ -3,6 +3,8 @@ import RegisterForm from "./RegisterForm"
 import { Link } from "react-router-dom"
 import { AppUserType } from "../../App"
 
+import "./Login.css"
+
 type LoginDataType = {
     email: string
     password: string
@@ -111,7 +113,8 @@ const Login = ({ onLogin }: LoginProps) => {
                 <button type="submit">Login</button>
             </form>
             <br />
-            <div>
+            <div className="login__register">
+                <div>Register now!</div>
                 <Link to="/register">Register</Link>
             </div>
         </div>

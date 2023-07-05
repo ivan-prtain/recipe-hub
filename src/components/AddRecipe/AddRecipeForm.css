@@ -1,0 +1,32 @@
+.new-recipe-form__head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.new-recipe-form__instructions {
+    height: 150px;
+}
+
+.edit-tag {
+    display: flex;
+    width: fit-content;
+    gap: 2px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        background-color: black;
+
+        &>:last-child {
+            color: red;
+            font-weight: 700;
+        }
+    }
+}
+
+.form-tag-collection {
+    margin: 10px 0;
+    display: flex;
+    gap: 5px;
+}

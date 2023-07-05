@@ -1,24 +1,95 @@
 .main-wrapper {
-    margin: 0px 20px;
+    padding: 0px 0px;
+
+
 }
 
 .header {
     margin-bottom: 40px;
+    background-image: url(../../assets/images/wood-sample.jpg);
+    background-size: cover;
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    background-blend-mode: multiply;
+    padding: 20px 0;
+
+    >h1 {
+        margin: 0 0 20px 0;
+    }
+
 }
 
 .instructions {
     display: flex;
-    gap: 10px;
+    gap: 30px;
+    margin: 5px 10px;
+    list-style: none;
+    padding: 0;
+}
+
+.instructions li:before {
+    content: "\2794";
+    margin-right: 5px;
 }
 
 .recipe {
     display: flex;
     gap: 20px;
-    flex-direction: column;
+    background-color: rgba(135, 101, 38, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.02);
+    }
+
 }
 
 .recipe-title {
     margin: 0;
+}
+
+.recipe-title-area {
+    display: flex;
+    gap: 20px;
+}
+
+.recipe-content {
+    color: white;
+}
+
+.recipe-thumbnail {
+    width: 150px;
+
+    &>img {
+        width: 100%;
+        height: 100%;
+        min-width: 150px;
+    }
+}
+
+.recipes-collection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-image: url(../../assets/images/wooden-desk.jpg);
+    background-size: contain;
+    padding: 10px 20px;
+    min-height: 865px;
+}
+
+
+
+.no-recipes {
+    width: 100vw;
+    height: 80vw;
+    background-image: url(../../assets/images/wooden-desk.jpg);
+    background-size: contain;
+    padding: 10px 20px;
 }
 
 .new-recipe-form {

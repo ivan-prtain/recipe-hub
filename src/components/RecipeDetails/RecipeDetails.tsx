@@ -4,6 +4,10 @@ import Modal from '../Modal/Modal';
 import AddRecipeForm from '../AddRecipe/AddRecipeForm';
 import { RecipeToAddType } from '../AddRecipe/AddRecipeForm';
 import { useNavigate } from 'react-router-dom';
+import { AppUserType } from '../../App';
+import { ReactComponent as ChefIcon } from '../../assets/svgs/chef.svg';
+
+import "./RecipeDetails.css";
 
 export type RecipeDetailsType = {
     id: string,
@@ -20,6 +24,7 @@ const RecipeDetails = () => {
     const [recipeData, setRecipeData] = useState<RecipeDetailsType | undefined>(undefined)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [isSavingRecipe, setIsSavingRecipe] = useState(false)
+    const [userData, setUserData] = useState<AppUserType | null>(null)
     const navigate = useNavigate()
 
     const { id } = useParams<{ id: string }>();
@@ -98,17 +103,45 @@ const RecipeDetails = () => {
         }
     }
 
+    const fetchUser = async () => {
+        try {
+            const response = await fetch(`/get-user/?appUserId=${recipeData?.authorId}`, {
+                method: 'GET',
+                headers: {
+                    authid: 'B03oPhAgezge1BbO8eWNwncfV4u1',
+                    "Content-Type": "application/json",
+                }
+            })
+            const data = await response.json()
+
+            setUserData(data.appUser)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const goBack = () => {
+        navigate(-1)
+    }
+
     useEffect(() => {
         fetchRecipeDetails()
     }, [])
 
-    console.log(isUserRecipeOwner)
+    useEffect(() => {
+        if (recipeData) {
+            fetchUser()
+        }
+    }, [recipeData])
 
 
 
     return (
         <div>
-            <h1>Recipe details</h1>
+            <h1 className='header'>Recipe details</h1>
+            <div className='recipe-details__back'>
+                <button onClick={goBack}>{"<- Go back"}</button>
+            </div>
             <div>
                 {isUserRecipeOwner &&
                     <div>
@@ -116,16 +149,28 @@ const RecipeDetails = () => {
                         <button onClick={handleDeleteRecipe}>Delete</button>
                     </div>}
             </div>
-            <div>
-                <h3>{recipeData?.title}</h3>
+            <div className='recipe-details__content'>
+                <h3 className='recipe-details-title'>{recipeData?.title}</h3>
                 <p>{recipeData?.dateCreated}</p>
-                <p>{recipeData?.authorId}</p>
-                <div>
-                    {recipeData?.instructions.map((instruction) => {
-                        return <p>{"-> " + instruction}</p>
+                <div className='recipe-details__author'>
+                    <p>Recipe by: {userData?.name}</p>
+                    <ChefIcon className='chef-icon' />
+                </div>
+
+                <div className='recipe-details__instructions'>
+                    {recipeData?.instructions.map((instruction, index) => {
+                        const number = index + 1
+                        return <div className='instruction-line'>
+                            <span className='instruction-number'>{number}</span> <p>{instruction}</p>
+                        </div>
                     })}
                 </div>
-                <p>{recipeData?.tags}</p>
+                <div className='recipe-details__tags'>
+                    <span>Tags:</span>
+                    {recipeData?.tags.map((tag) => {
+                        return <span className='fixed-tag'>{tag}</span>
+                    })}
+                </div>
             </div>
 
             <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)}>
