@@ -54,17 +54,18 @@ const Login = ({ onLogin }: LoginProps) => {
     }
 
     return (
-        <div>
+        <div className="login-container">
             <h1>Login</h1>
-            <form onSubmit={handleLogin}>
+            <form className="login-form" onSubmit={handleLogin}>
                 <input placeholder="email" name="email" />
                 <input placeholder="password" name="password" />
                 <button type="submit">Login</button>
             </form>
             <br />
             <div className="login__register">
+                <div>Not registered?</div>
                 <div>Register now!</div>
-                <Link to="/register">Register</Link>
+                <Link className="login-link" to="/register">Register</Link>
             </div>
         </div>
     )
