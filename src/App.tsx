@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import Login from './components/Login/Login';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
@@ -27,8 +26,6 @@ function App() {
   useEffect(() => {
     if (!appUser) {
       const storedUser = localStorage.getItem('appUser');
-      /*       console.log("from start page")
-            console.log(storedUser) */
       if (storedUser) {
         const parsedStoredUser = JSON.parse(storedUser);
         setAppUser(parsedStoredUser);
@@ -42,8 +39,6 @@ function App() {
   if (!loginChecked) {
     return <div></div>
   }
-
-
 
   return (
     <Router>
@@ -68,9 +63,6 @@ function App() {
           />
 
         </Routes>
-
-
-
       </div>
     </Router>
 

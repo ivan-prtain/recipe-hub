@@ -26,10 +26,8 @@ const RecipeDetails = () => {
     const [isSavingRecipe, setIsSavingRecipe] = useState(false)
     const [userData, setUserData] = useState<AppUserType | null>(null)
     const navigate = useNavigate()
-
     const { id } = useParams<{ id: string }>();
     const storedUser = JSON.parse(localStorage.getItem('appUser')!);
-    console.log({ storedUser })
 
     const fetchRecipeDetails = async () => {
         try {
@@ -46,8 +44,6 @@ const RecipeDetails = () => {
             if (data.recipe.authorId === storedUser.id) {
                 setIsUserRecipeOwner(true)
             }
-            console.log("recipefetch")
-            console.log(data)
 
         } catch (error) {
             console.log(error)
@@ -71,7 +67,6 @@ const RecipeDetails = () => {
             })
             if (response.status === 200) {
                 setIsEditModalOpen(false)
-
                 fetchRecipeDetails()
             }
 
@@ -95,9 +90,7 @@ const RecipeDetails = () => {
                 setIsEditModalOpen(false)
                 fetchRecipeDetails()
                 navigate('/')
-
             }
-
         } catch (error) {
             console.log(error)
         }

@@ -9,7 +9,6 @@ type ModalProps = {
 
 const Modal = ({ children, isOpen, onClose }: ModalProps) => {
 
-
     if (!isOpen) {
         return null
     }

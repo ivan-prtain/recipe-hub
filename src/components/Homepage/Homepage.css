@@ -77,7 +77,7 @@
     flex-direction: column;
     gap: 20px;
     background-image: url(../../assets/images/wooden-desk.jpg);
-    background-size: contain;
+    background-size: cover;
     padding: 10px 20px;
     min-height: 865px;
 }
@@ -103,4 +103,34 @@
     &:focus {
         outline: none;
     }
+}
+
+.add-recipe-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: red;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: white;
+        color: black;
+        transform: scale(1.02);
+    }
+}
+
+.load-more {
+    padding: 10px 40px;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border: none;
+}
+
+.load-more-container {
+    display: flex;
+    justify-content: center;
+
 }

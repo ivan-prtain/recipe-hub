@@ -4,7 +4,6 @@ import Modal from '../Modal/Modal';
 import AddRecipe from '../AddRecipe/AddRecipeForm';
 import { RecipeToAddType } from '../AddRecipe/AddRecipeForm';
 import foodImage from '../../assets/images/food-default.jpg';
-import coverImage from "../../assets/images/spaghetti.jpg"
 
 import "./Homepage.css"
 
@@ -32,7 +31,6 @@ enum SearchOption {
     tags = "tags"
 }
 
-
 const Homepage = () => {
 
     const navigate = useNavigate()
@@ -45,7 +43,6 @@ const Homepage = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [onlyAuthorsRecipes, setOnlyAuthorsRecipes] = useState(false)
 
-
     const fetchRecipes = async () => {
         try {
             const response = await fetch(`/get-recipes`, {
@@ -56,8 +53,6 @@ const Homepage = () => {
                 }
             })
             const data = await response.json()
-            /*      console.log("recipes")
-                 console.log(data.recipes) */
             setAllRecipes(data.recipes)
             setRecipes(data.recipes.slice(0, 10))
         } catch (error) {
@@ -68,7 +63,6 @@ const Homepage = () => {
     useEffect(() => {
         fetchRecipes()
     }, [])
-
 
 
     const handleRecipeClick = (id: string) => {
@@ -95,17 +89,11 @@ const Homepage = () => {
             })
             setRecipes(filteredRecipes)
         }
-
-
-
     }
 
     const onModalClose = () => {
         setIsModalOpen(false)
     }
-
-    /*     console.log({ searchValue }) */
-
 
     const addRecipe = async (recipe: RecipeToAddType) => {
         console.log(recipe)
@@ -144,14 +132,11 @@ const Homepage = () => {
     }
 
     const addPage = () => {
-
-        console.log(currentPage)
         const startIndex = currentPage * 10
         const endIndex = startIndex + 10
         const contentToAdd = allRecipes.slice(startIndex, endIndex)
         setRecipes([...recipes, ...contentToAdd])
         setCurrentPage(currentPage + 1)
-
     }
 
     const handleSelectChagnge = (event: any) => {
@@ -159,13 +144,9 @@ const Homepage = () => {
     }
 
     const handleAuthorToggle = () => {
-
-
         if (!onlyAuthorsRecipes) {
             const authorRecipes = allRecipes.filter((recipe) => {
                 const userData = JSON.parse(localStorage.getItem('appUser')!)
-
-                console.log(recipe.authorId)
                 return recipe.authorId === userData.id
             })
             setRecipes(authorRecipes)
@@ -175,8 +156,6 @@ const Homepage = () => {
         }
 
         setOnlyAuthorsRecipes(!onlyAuthorsRecipes)
-
-
     }
 
 
@@ -193,7 +172,7 @@ const Homepage = () => {
                     <button onClick={handleSearch}>Search</button>
                 </div>
                 <div>
-                    <button onClick={() => setIsModalOpen(true)}>Add Recipe</button>
+                    <button className='add-recipe-button' onClick={() => setIsModalOpen(true)}>Add your Recipe!</button>
                 </div>
             </div>
             <div>
@@ -232,10 +211,11 @@ const Homepage = () => {
             <Modal isOpen={isModalOpen} onClose={onModalClose}>
                 {isSubmittingRecipe ? <p>Adding recipe...</p> : <AddRecipe onSubmit={addRecipe} />}
             </Modal>
-            {!onlyAuthorsRecipes && !searchValue && < button onClick={addPage}>Load more</button>}
+            <div className='load-more-container'>
 
+                {!onlyAuthorsRecipes && !searchValue && < button className='load-more' onClick={addPage}>Load more...</button>}
+            </div>
         </div >
-
     )
 }
 
