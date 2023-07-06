@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { RecipeRequestFormatType } from '../Homepage/Homepage'
 import { RecipeDetailsType } from '../RecipeDetails/RecipeDetails'
 
 import "./AddRecipeForm.css"
@@ -31,11 +30,12 @@ const AddRecipeForm = ({ onSubmit, editMode = false, editingData }: AddRecipeFor
             setInstructions(formattedInstructions)
             setTags(editingData.tags)
         }
-    }, [])
+    }, [editMode, editingData])
 
 
     const handleAddTagg = () => {
         setTags([...tags, tag])
+        setTag('')
     }
 
     const getFormatedInstructions = (instructions: string) => {
@@ -99,7 +99,7 @@ const AddRecipeForm = ({ onSubmit, editMode = false, editingData }: AddRecipeFor
 
                     <div>
                         <p>Add a tag</p>
-                        <input type="text" name="tag" placeholder='Tag' onChange={(e) => setTag(e.target.value)} />
+                        <input type="text" name="tag" placeholder='Tag' value={tag} onChange={(e) => setTag(e.target.value)} />
                         <button type='button' onClick={handleAddTagg}>Add</button>
                     </div>
                     <div>

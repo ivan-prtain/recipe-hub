@@ -7,16 +7,6 @@ import foodImage from '../../assets/images/food-default.jpg';
 
 import "./Homepage.css"
 
-export type RecipeRequestFormatType = {
-    recipe: {
-        authorId: string,
-        dateCreated: string,
-        instructions: string[]
-        tags: string[]
-        title: string
-    }
-}
-
 type RecipeType = {
     authorId: string,
     dateCreated: string,
@@ -186,7 +176,7 @@ const Homepage = () => {
                     {recipes.map((recipe) => (
                         <div key={recipe.id} className='recipe' onClick={() => handleRecipeClick(recipe.id)}>
                             <div className='recipe-thumbnail'>
-                                <img src={foodImage} alt='image of food in bowl' />
+                                <img src={foodImage} alt='food in bowl' />
                             </div>
                             <div className='recipe-content'>
                                 <div className='recipe-title-area'>
