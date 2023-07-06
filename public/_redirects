@@ -1,0 +1,9 @@
+/all-users/* https://getappusers-zazjbx7nka-uc.a.run.app/:splat 200
+/get-user/* https://getappuser-zazjbx7nka-uc.a.run.app/:splat 200
+/add-user/* https://addappuser-zazjbx7nka-uc.a.run.app/:splat 200
+/login/* https://login-zazjbx7nka-uc.a.run.app/:splat 200
+/get-recipes/* https://getrecipes-zazjbx7nka-uc.a.run.app/:splat 200
+/get-recipe/* https://getrecipe-zazjbx7nka-uc.a.run.app/:splat 200
+/add-recipe/* https://addrecipe-zazjbx7nka-uc.a.run.app/:splat 200
+/edit-recipe/* https://editrecipe-zazjbx7nka-uc.a.run.app/:splat 200
+/delete-recipe/* https://deleterecipe-zazjbx7nka-uc.a.run.app/:splat 200
