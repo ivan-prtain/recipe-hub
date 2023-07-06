@@ -6,6 +6,7 @@ import { RecipeToAddType } from '../AddRecipe/AddRecipeForm';
 import { useNavigate } from 'react-router-dom';
 import { AppUserType } from '../../App';
 import { ReactComponent as ChefIcon } from '../../assets/svgs/chef.svg';
+import { useCallback } from 'react';
 
 import "./RecipeDetails.css";
 
@@ -29,7 +30,7 @@ const RecipeDetails = () => {
     const { id } = useParams<{ id: string }>();
     const storedUser = JSON.parse(localStorage.getItem('appUser')!);
 
-    const fetchRecipeDetails = async () => {
+    const fetchRecipeDetails = useCallback(async () => {
         try {
             const response = await fetch(`/get-recipe/?recipeId=${id}`, {
                 method: 'GET',
@@ -37,18 +38,17 @@ const RecipeDetails = () => {
                     authid: 'B03oPhAgezge1BbO8eWNwncfV4u1',
                     "Content-Type": "application/json",
                 }
-            })
-            const data = await response.json()
-            setRecipeData(data.recipe)
+            });
+            const data = await response.json();
+            setRecipeData(data.recipe);
 
             if (data.recipe.authorId === storedUser.id) {
-                setIsUserRecipeOwner(true)
+                setIsUserRecipeOwner(true);
             }
-
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    }, [id, storedUser.id]);
 
     const handleSaveRecipe = async (recipe: RecipeToAddType) => {
         setIsSavingRecipe(true)
@@ -96,22 +96,7 @@ const RecipeDetails = () => {
         }
     }
 
-    const fetchUser = async () => {
-        try {
-            const response = await fetch(`/get-user/?appUserId=${recipeData?.authorId}`, {
-                method: 'GET',
-                headers: {
-                    authid: 'B03oPhAgezge1BbO8eWNwncfV4u1',
-                    "Content-Type": "application/json",
-                }
-            })
-            const data = await response.json()
 
-            setUserData(data.appUser)
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     const goBack = () => {
         navigate(-1)
@@ -119,9 +104,25 @@ const RecipeDetails = () => {
 
     useEffect(() => {
         fetchRecipeDetails()
-    }, [])
+    }, [fetchRecipeDetails])
 
     useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await fetch(`/get-user/?appUserId=${recipeData?.authorId}`, {
+                    method: 'GET',
+                    headers: {
+                        authid: 'B03oPhAgezge1BbO8eWNwncfV4u1',
+                        "Content-Type": "application/json",
+                    }
+                })
+                const data = await response.json()
+
+                setUserData(data.appUser)
+            } catch (error) {
+                console.log(error)
+            }
+        }
         if (recipeData) {
             fetchUser()
         }
