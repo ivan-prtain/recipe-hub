@@ -57,7 +57,7 @@ const Login = ({ onLogin }: LoginProps) => {
             <h1>Login</h1>
             <form className="login-form" onSubmit={handleLogin}>
                 <input placeholder="email" name="email" />
-                <input placeholder="password" name="password" />
+                <input type="password" placeholder="password" name="password" />
                 <button type="submit">Login</button>
             </form>
             <br />
